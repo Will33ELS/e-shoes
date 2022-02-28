@@ -2,30 +2,30 @@
 
 namespace App\Repository;
 
-use App\Entity\Tshirts;
+use App\Entity\Article;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Tshirts|null find($id, $lockMode = null, $lockVersion = null)
- * @method Tshirts|null findOneBy(array $criteria, array $orderBy = null)
- * @method Tshirts[]    findAll()
- * @method Tshirts[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Article|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Article|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Article[]    findAll()
+ * @method Article[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TshirtsRepository extends ServiceEntityRepository
+class ArticleRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Tshirts::class);
+        parent::__construct($registry, Article::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Tshirts $entity, bool $flush = true): void
+    public function add(Article $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -37,7 +37,7 @@ class TshirtsRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Tshirts $entity, bool $flush = true): void
+    public function remove(Article $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -46,15 +46,15 @@ class TshirtsRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Tshirts[] Returns an array of Tshirts objects
+    //  * @return Article[] Returns an array of Article objects
     //  */
     /*
     public function findByExampleField($value)
     {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.exampleField = :val')
             ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
+            ->orderBy('a.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
@@ -63,10 +63,10 @@ class TshirtsRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Tshirts
+    public function findOneBySomeField($value): ?Article
     {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.exampleField = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()

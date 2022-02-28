@@ -2,13 +2,18 @@
 
 namespace App\Entity;
 
-use App\Repository\TshirtsRepository;
+use App\Controller\ArticleController;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=TshirtsRepository::class)
+ * @ApiResource(
+ *     collectionOperations={"get"},
+ *     itemOperations={"get"}
+ * )
+ * @ORM\Entity(repositoryClass=App\Repository\ArticleRepository::class)
  */
-class Tshirts
+class Article
 {
     /**
      * @ORM\Id
@@ -23,12 +28,17 @@ class Tshirts
     private $name;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
+     */
+    private $type;
+
+    /**
+     * @ORM\Column(type="string", length=255)
      */
     private $size;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $keyword;
 
@@ -45,16 +55,27 @@ class Tshirts
     public function setName(string $name): self
     {
         $this->name = $name;
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }
 
-    public function getSize(): ?int
+    public function getSize(): ?string
     {
         return $this->size;
     }
 
-    public function setSize(int $size): self
+    public function setSize(string $size): self
     {
         $this->size = $size;
 
@@ -66,7 +87,7 @@ class Tshirts
         return $this->keyword;
     }
 
-    public function setKeyword(?string $keyword): self
+    public function setKeyword(string $keyword): self
     {
         $this->keyword = $keyword;
 
