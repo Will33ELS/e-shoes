@@ -1,0 +1,23 @@
+{% extends 'layout/layout.html.twig' %}
+{% block title %}
+    Catalogue
+{% endblock %}
+{% block content %}
+    {% if(articles == 0) %}
+        <p>Aucun article à afficher :(</p>
+    {% else %}
+        <div class="article-list">
+            {% for article in articles %}
+                <div class="article-list-item">
+                    <img src="{{ article.imageUrl }}" alt="{{ article.name }}">
+                    <h4>{{ article.name }}</h4>
+                    {% if(article.type == "shoe") %}
+                        <p>Pointure: {{ article.size }}</p>
+                    {% else %}
+                        <p>Taille: {{ article.size }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

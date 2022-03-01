@@ -1,0 +1,21 @@
+{% extends 'layout/layout.html.twig' %}
+{% block title %}
+    Page de connexion
+{% endblock %}
+{% block content %}
+    <form action="{{ path("login") }}" method="POST">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <div class="form-group my-3">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="_username" value="{{ last_username }}">
+        </div>
+        <div class="form-group my-3">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="_password">
+        </div>
+        <button class="btn btn-primary my-3" type="submit">LOGIN</button>
+        {% if error %}
+            <p class="text-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+        {% endif %}
+    </form>
+{% endblock %}

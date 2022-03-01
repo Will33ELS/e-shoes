@@ -1,0 +1,45 @@
+<header class="mb-3">
+    <nav>
+        <div class="left-nav">
+            <ul>
+                <li>
+                    <a href="{{ path("home") }}">
+                        Catalogue
+                    </a>
+                </li>
+                {% if app.user != null %}
+                    <li>
+                        <a href="{{ path("add_article") }}">
+                            Ajouter un article
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="logo">
+            <div class="logo-text">
+                <h1>
+                    E-Shoes
+                </h1>
+            </div>
+        </div>
+        <div class="right-nav">
+            <ul>
+                {% if app.user == null %}
+                    <li>
+                        <a href="{{ path("login") }}">
+                            Connexion
+                        </a>
+                    </li>
+                {% endif %}
+                {% if app.user != null %}
+                    <li>
+                        <a href="{{ path("app_logout") }}">
+                            Déconnexion
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+</header>

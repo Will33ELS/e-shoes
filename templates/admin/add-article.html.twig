@@ -1,0 +1,44 @@
+{% extends 'layout/layout.html.twig' %}
+{% block title %}
+    Ajouter un article
+{% endblock %}
+{% block content %}
+    <h2 class="text-center">Création d'un article</h2>
+    <form id="article_form" class="needs-validation" action="{{ path("add_article") }}" method="POST" novalidate>
+        <div class="form-group my-3">
+            <label for="name">Nom de l'article</label>
+            <input type="text" class="form-control" id="name" name="article_name" required>
+            <div class="invalid-feedback">
+                Veuillez définir un nom d'article
+            </div>
+        </div>
+        <div class="form-group my-3">
+            <select id="article_type" name="article_type" class="form-select" aria-label="Type de l'article" required>
+                <option value="" disabled selected>Sélectionner le type de l'article...</option>
+                <option value="shoe">Chaussures</option>
+                <option value="tshirt">Tshirt</option>
+            </select>
+            <div class="invalid-feedback">
+                Veuillez définir le type de article
+            </div>
+        </div>
+        <div id="article_size_div" class="form-group my-3">
+
+        </div>
+        <div class="form-group my-3">
+            <label for="article_keyword">Mots clés</label>
+            <input type="text" class="form-control" id="article_keyword" name="article_keyword" placeholder="chassure,bleu,rouge,dorée"/>
+        </div>
+        <div class="form-group my-3">
+            <label for="article_image_url">URL de l'image</label>
+            <input type="text" class="form-control" id="article_image_url" name="article_image_url" placeholder="https://www.adidas.com" required/>
+            <div class="invalid-feedback">
+                Veuillez définir une image
+            </div>
+        </div>
+        <button id="button_submit" class="btn btn-primary my-3" type="submit">Créer</button>
+    </form>
+{% endblock %}
+{% block page_script %}
+    <script src="{{ asset("js/add-article.js") }}"></script>
+{% endblock %}

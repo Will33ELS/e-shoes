@@ -42,6 +42,11 @@ class Article
      */
     private $keyword;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $imageURL;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -92,5 +97,15 @@ class Article
         $this->keyword = $keyword;
 
         return $this;
+    }
+
+    public function getImageURL()
+    {
+        return $this->imageURL;
+    }
+
+    public function setImageURL($imageURL): void
+    {
+        $this->imageURL = $imageURL;
     }
 }
