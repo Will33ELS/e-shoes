@@ -4,11 +4,11 @@ const articleForm = document.getElementById("article_form");
 
 articleType.addEventListener('change', (event) => {
     const result = event.target.value;
-    if(result !== "shoe" && result !== "tshirt"){
+    if(result !== "chaussures" && result !== "tshirt"){
         resetSize();
     }else{
         resetSize();
-        if(result === "shoe"){
+        if(result === "chaussures"){
             createShoeSizeSelect();
         }else{
             createTshirtSizeSelect()

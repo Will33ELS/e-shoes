@@ -3,8 +3,10 @@
     Catalogue
 {% endblock %}
 {% block content %}
-    {% if(articles == 0) %}
-        <p>Aucun article à afficher :(</p>
+    {{ include('home/search.html.twig') }}
+
+    {% if(articles|length == 0) %}
+        <p class="text-center">Aucun article à afficher :(</p>
     {% else %}
         <div class="article-list">
             {% for article in articles %}

@@ -6,6 +6,7 @@ use App\Entity\Article;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ArticleController extends AbstractController
@@ -22,11 +23,11 @@ class ArticleController extends AbstractController
             $articleImageURL= $postRequest->get("article_image_url");
 
             if(!empty($articleName) && !empty($articleType) && !empty($articleSize) && !empty($articleImageURL)){
-                if($articleType != "shoe" && $articleType != "tshirt"){
+                if($articleType != "chaussures" && $articleType != "tshirt"){
                     $this->addFlash('error', "Le type de l'article n'est pas supporté !");
                     return $this->redirectToRoute("add_article");
                 }else {
-                    if($articleType == "shoe" && (!is_int($articleSize) || $articleSize < 36 || $articleSize > 48)){
+                    if($articleType == "chaussures" && (intval($articleSize) < 36 || intval($articleSize) > 48)){
                         $this->addFlash('error', "La pointure doit être comprise entre 36 et 48");
                         return $this->redirectToRoute("add_article");
                     }else if($articleType == "tshirt"){

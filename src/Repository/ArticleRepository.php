@@ -48,29 +48,19 @@ class ArticleRepository extends ServiceEntityRepository
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */
-    /*
-    public function findByExampleField($value)
+    public function findBySearch($value)
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $conn = $this->getEntityManager()->getConnection();
 
-    /*
-    public function findOneBySomeField($value): ?Article
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $sql = '
+            SELECT id, name, type, size, keyword, image_url AS imageUrl FROM article a
+            WHERE a.type = :type
+            UNION 
+            SELECT id, name, type, size, keyword, image_url AS imageUrl FROM article a
+            WHERE a.keyword LIKE :keyword
+            ';
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery(['type' => $value, "keyword" => '%' . $value . '%']);
+        return $resultSet->fetchAllAssociative();
     }
-    */
 }
