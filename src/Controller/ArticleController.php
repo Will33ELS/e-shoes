@@ -15,6 +15,7 @@ class ArticleController extends AbstractController
      * @Route("/add-article", name="add_article")
      */
     public function addArticle(Request $request, ManagerRegistry $doctrine){
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         if($request->getMethod() == "POST"){
             $postRequest = $request->request;
             $articleName = $postRequest->get("article_name");

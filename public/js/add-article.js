@@ -9,9 +9,24 @@ articleType.addEventListener('change', (event) => {
     }else{
         resetSize();
         if(result === "chaussures"){
-            createShoeSizeSelect();
+            const label = createLabelSize("Pointure")
+            label.setAttribute("for", "article_size")
+            articleSizeDiv.append(label);
+
+            const input = createShoeSizeSelect();
+            input.setAttribute("required", "true");
+            input.id = "article_size";
+            input.name = "article_size";
+            articleSizeDiv.append(input);
         }else{
-            createTshirtSizeSelect()
+            const label = createLabelSize("Taille")
+            label.setAttribute("for", "article_size")
+            articleSizeDiv.append(label);
+
+            const select = createTshirtSizeSelect()
+            select.id = "article_size";
+            select.name = "article_size";
+            articleSizeDiv.append(select);
         }
     }
 });
@@ -24,45 +39,6 @@ articleForm.addEventListener("submit", (event) => {
 
     articleForm.classList.add('was-validated')
 })
-
-const createShoeSizeSelect = () => {
-    createLabelSize("Pointure")
-    const input = document.createElement("input");
-    input.setAttribute("required", "true");
-    input.setAttribute("min", "38");
-    input.setAttribute("max", "46");
-    input.classList.add("form-control");
-    input.id = "article_size";
-    input.name = "article_size";
-    input.setAttribute("type", "number")
-    input.placeholder = "Entre 38 et 46"
-
-    articleSizeDiv.append(input)
-}
-
-const createTshirtSizeSelect = () => {
-    createLabelSize("Taille")
-    const select = document.createElement("select");
-    select.setAttribute("required", "true");
-    select.classList.add("form-control");
-    select.id = "article_size";
-    select.name = "article_size";
-    const option = ["XS", "S", "M", "L", "XL"]
-    option.forEach(o => {
-        const optionElement = document.createElement("option");
-        optionElement.textContent = o;
-        optionElement.value = o;
-        select.append(optionElement);
-    })
-    articleSizeDiv.append(select);
-}
-
-const createLabelSize = (content) => {
-    const label = document.createElement("label");
-    label.setAttribute("for", "article_size")
-    label.textContent = content;
-    articleSizeDiv.append(label);
-}
 
 const resetSize = () => {
     while (articleSizeDiv.firstChild) {

@@ -5,21 +5,38 @@
 {% block content %}
     {{ include('home/search.html.twig') }}
 
-    {% if(articles|length == 0) %}
-        <p class="text-center">Aucun article à afficher :(</p>
-    {% else %}
-        <div class="article-list">
-            {% for article in articles %}
-                <div class="article-list-item">
-                    <img src="{{ article.imageUrl }}" alt="{{ article.name }}">
-                    <h4>{{ article.name }}</h4>
-                    {% if(article.type == "shoe") %}
-                        <p>Pointure: {{ article.size }}</p>
-                    {% else %}
-                        <p>Taille: {{ article.size }}</p>
-                    {% endif %}
-                </div>
-            {% endfor %}
+    <div class="row">
+        {{ include('home/filter.html.twig') }}
+        <div class="col-12 col-lg-9">
+            {% if(articles|length == 0) %}
+            <p class="text-center">Aucun article à afficher :(</p>
+            {% else %}
+            <div class="article-list">
+                {% for article in articles %}
+                    <div class="article-list-item">
+                        <img src="{{ article.imageUrl }}" alt="{{ article.name }}">
+                        <h4>{{ article.name }}</h4>
+                        {% if(article.type == "shoe") %}
+                            <p>Pointure: {{ article.size }}</p>
+                        {% else %}
+                            <p>Taille: {{ article.size }}</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
         </div>
-    {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}
+{% block page_script %}
+    <script src="{{ asset("js/filter.js") }}"></script>
+    <script>
+        {% if filter is defined and filter["size"] is not empty %}
+            {% if filter["type"] == "chaussures" %}
+                    document.getElementById("filter_size_input").value = {{ filter["size"] }}
+            {% elseif filter["type"] == "tshirt" %}
+                   selectItemByValue(document.getElementById("filter_size_input"), "{{ filter["size"] }}")
+            {% endif %}
+        {% endif %}
+    </script>
 {% endblock %}

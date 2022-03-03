@@ -45,9 +45,10 @@ class ArticleRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return Article[] Returns an array of Article objects
-    //  */
+    /**
+     * @param $value Search
+    * @return Article[] Returns an array of Article by search
+    */
     public function findBySearch($value)
     {
         $conn = $this->getEntityManager()->getConnection();
@@ -62,5 +63,20 @@ class ArticleRepository extends ServiceEntityRepository
         $stmt = $conn->prepare($sql);
         $resultSet = $stmt->executeQuery(['type' => $value, "keyword" => '%' . $value . '%']);
         return $resultSet->fetchAllAssociative();
+    }
+
+    /**
+     * @param $type String Type of the article
+     * @param $size String Size of the article
+     * @return Article[] Returns an array of Article by filter
+     */
+    public function findByFilter($type, $size){
+        $article = $this->createQueryBuilder("a")->andWhere("a.type = :type")
+        ->setParameter("type", $type);
+        if($size != null) {
+            $article->andWhere("a.size = :size")
+            ->setParameter("size", $size);
+        }
+        return $article->getQuery()->getResult();
     }
 }

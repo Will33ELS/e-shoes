@@ -1,0 +1,29 @@
+<div class="col-12 col-lg-3 mb-5 mb-lg-0">
+    <div class="card">
+        <div class="card-header">
+            Filtre
+        </div>
+        <div class="card-body">
+            <form class="m-0" action="{{ path("search") }}" method="POST">
+                <label for="filter-select">Type de l'article</label>
+                <select id="filter-select" name="filter_type" class="form-select mb-3">
+                    <option disabled selected>Sélectionner le type de l'article</option>
+                    <option value="chaussures"
+                            {% if filter is defined and filter["type"] == "chaussures" %}
+                    selected
+                            {% endif %}>
+                        Chaussures
+                    </option>
+                    <option value="tshirt"
+                            {% if filter is defined and filter["type"] == "tshirt" %}
+                    selected
+                            {% endif %}>
+                        Tshirt
+                    </option>
+                </select>
+                <div id="filter-size"></div>
+                <button id="filter-button" type="submit" class="d-none btn btn-primary mt-3">Rechercher</button>
+            </form>
+        </div>
+    </div>
+</div>

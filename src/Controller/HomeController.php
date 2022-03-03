@@ -31,7 +31,17 @@ class HomeController extends AbstractController
             $search = $request->request->get("search");
             $repository = $doctrine->getRepository(Article::class);
             return $this->render("home/index.html.twig", [
-                "articles" => $repository->findBySearch($search)
+                "articles" => $repository->findBySearch($search),
+                "search" => $search
+            ]);
+        }else if($request->request->has("filter_type")){
+            $repository = $doctrine->getRepository(Article::class);
+            $type = $request->request->get("filter_type");
+            $size = $request->request->get("filter_size");
+            if(empty($size)) $size = null;
+            return $this->render("home/index.html.twig", [
+                "articles" => $repository->findByFilter($type, $size),
+                "filter" => ["type" => $type, "size" => $size]
             ]);
         }
         return $this->redirectToRoute("home");

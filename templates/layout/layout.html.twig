@@ -27,9 +27,12 @@
             {{ message }}
         </div>
     {% endfor %}
-    {% block content %}{% endblock %}
+    <div class="container-fluid">
+        {% block content %}{% endblock %}
+    </div>
 </main>
-
-{% block page_script %}{% endblock %}
 </body>
+
+<script src="{{ asset("js/form-utils.js") }}"></script>
+{% block page_script %}{% endblock %}
 </html>
